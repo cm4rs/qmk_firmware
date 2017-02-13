@@ -24,6 +24,8 @@ enum planck_layers {
   _RAISE_J,
   _SPACE_FN_M,
   _SPACE_FN_J,
+  _FN_M,
+  _FN_J,
   _NUMLOCK,
   _ADJUST
 };
