@@ -20,6 +20,7 @@ enum planck_layers {
   _DVORAK_J,
   _LOWER_M,
   _RAISE_M,
+  _SRAISE_M,
   _LOWER_J,
   _RAISE_J,
   _SPACE_FN_M,
@@ -36,6 +37,7 @@ enum planck_keycodes {
   DVORAK_J,
   LOWER_M,
   RAISE_M,
+  SRAISE_M,
   LOWER_J,
   RAISE_J,
   SPACE_FN_J,
@@ -127,15 +129,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
  * │      │   à  │   ô  │   é  │   û  │   î  ║Macel1│Mleft │MDown │Mright│MWdn  │      │
  * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
- * │      │   â  │   ö  │   è  │   ù  │   ï  ║Macel2│Mbtn4 │Mbtn2 │Mbtn5 │      │      │
+ * │SRAISE│   â  │   ö  │   è  │   ù  │   ï  ║Macel2│Mbtn4 │Mbtn2 │Mbtn5 │      │      │
  * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
  * │      │      │      │      │      │             │ ▒▒▒▒ │ Home │ PgUp │ PgDn │ End  │
  * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
 [_RAISE_M] = {
-  {_______, UC(0x00e4), UC(0x00ea), UC(0x00eb), UC(0x00fc), _______,    KC_ACL0, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______},
-  {_______, UC(0x00e0), UC(0x00f4), UC(0x00e9), UC(0x00fb), UC(0x00ee), KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______},
-  {_______, UC(0x00e2), UC(0x00f6), UC(0x00e8), UC(0x00f9), UC(0x00ee), KC_ACL2, KC_BTN4, KC_BTN1, KC_BTN5, _______, _______},
+  {_______,  UC(0x00e4), UC(0x00ea), UC(0x00eb), UC(0x00fc), _______,    KC_ACL0, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______},
+  {_______,  UC(0x00e0), UC(0x00f4), UC(0x00e9), UC(0x00fb), UC(0x00ee), KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______},
+  {SRAISE_M, UC(0x00e2), UC(0x00f6), UC(0x00e8), UC(0x00f9), UC(0x00ef), KC_ACL2, KC_BTN4, KC_BTN1, KC_BTN5, _______, _______},
+  {_______,  _______,    _______,    _______,    _______,    _______,    _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
+},
+/* Raise m4rs avec unicode shifté
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │      │   Ä  │   Ê  │   Ë  │   Ü  │      ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │   À  │   Ô  │   É  │   Û  │   Î  ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │ ▒▒▒▒ │   Â  │   Ö  │   È  │   Ù  │   Ï  ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │      │      │      │             │ ▒▒▒▒ │      │      │      │      │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
+ */
+[_SHIFT_RAISE_M] = {
+  {_______, UC(0x00c4), UC(0x00ca), UC(0x00cb), UC(0x00dc), _______,    KC_ACL0, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______},
+  {_______, UC(0x00c0), UC(0x00d4), UC(0x00c9), UC(0x00db), UC(0x00ce), KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______},
+  {_______, UC(0x00c2), UC(0x00d6), UC(0x00c8), UC(0x00d9), UC(0x00cf), KC_ACL2, KC_BTN4, KC_BTN1, KC_BTN5, _______, _______},
   {_______, _______,    _______,    _______,    _______,    _______,    _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
 },
 
@@ -358,6 +377,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE_M);
         update_tri_layer(_LOWER_M, _RAISE_M, _ADJUST);
+      }
+      return false;
+      break;
+    case SRAISE_M:
+      if (record->event.pressed) {
+        layer_on(_SRAISE_M);
+      } else {
+        layer_off(_SRAISE_M);
       }
       return false;
       break;
