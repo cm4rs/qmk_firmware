@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │      │      │      │      │      │             │ ▒▒▒▒ │      │      │      │      │
  * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
-[_SHIFT_RAISE_M] = {
+[_SRAISE_M] = {
   {_______, UC(0x00c4), UC(0x00ca), UC(0x00cb), UC(0x00dc), _______,    KC_ACL0, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______},
   {_______, UC(0x00c0), UC(0x00d4), UC(0x00c9), UC(0x00db), UC(0x00ce), KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______},
   {_______, UC(0x00c2), UC(0x00d6), UC(0x00c8), UC(0x00d9), UC(0x00cf), KC_ACL2, KC_BTN4, KC_BTN1, KC_BTN5, _______, _______},
