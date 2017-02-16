@@ -52,6 +52,7 @@ enum planck_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#define W_CLOSE  LCTL(KC_W) // C-w Close
 #define W_CUT    LCTL(KC_X) // C-x Cut
 #define W_COPY   LCTL(KC_C) // C-c Copy
 #define W_PASTE  LCTL(KC_V) // C-v Paste
@@ -59,6 +60,7 @@ enum planck_keycodes {
 #define W_REDO   LCTL(KC_Y) // C-y Redo
 #define W_FIND   LCTL(KC_F) // C-v Find
 
+#define A_CLOSE  LGUI(KC_W) // Pomme-w Close
 #define A_CUT    LGUI(KC_X) // Pomme-x Cut
 #define A_COPY   LGUI(KC_C) // Pomme-c Copy
 #define A_PASTE  LGUI(KC_V) // Pomme-v Paste
@@ -110,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
  * │      │   -  │   _  │   ?  │   =  │   +  ║      │   (  │   )  │   {  │   }  │  │   │
  * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
- * │      │ Undo │ Cut  │ Copy │ Paste│      ║      │   «  │   »  │      │      │      │
+ * │      │Close │ Undo │ Cut  │ Copy │Paste ║      │   «  │   »  │      │      │      │
  * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
  * │      │      │      │      │ ▒▒▒▒ │             │      │ Home │ PgUp │ PgDn │ End  │
  * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
@@ -118,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER_M] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_MINS, KC_EQL,  KC_DEL},
   {_______, KC_MINS, KC_UNDS, KC_QUES, KC_EQL,  KC_PLUS, _______, KC_LPRN,    KC_RPRN,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, _______, UC(0x00ab), UC(0x00bb), _______, _______, _______},
+  {_______, W_CLOSE, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, UC(0x00ab), UC(0x00bb), _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______,    KC_HOME,    KC_PGUP, KC_PGDN, KC_END}
 },
 
