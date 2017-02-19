@@ -246,7 +246,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE_J] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL},
   {_______, ______, ______,   ______, ________, _______, _______, _______, KC_LBRC, KC_RBRC, LC_BSLS, KC_ENT},
-  {_______, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, _______, _______, ______,  KC_MINS, KC_EQL, KC_RSFT},
+  {_______, _______, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, _______, ______,  KC_MINS, KC_EQL, KC_RSFT},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_MPLY}
 },
 
