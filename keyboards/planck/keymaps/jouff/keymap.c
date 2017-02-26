@@ -101,16 +101,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  _   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   '  |   "  |   {  |   }  |   [  |   ]  |  |   |   \  |   =  |   +  |  -   |
+ * |      |   {  |   }  |   [  |   ]  |   '  |   "  |  |   |   \  |   =  |   +  |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Home | PgUp | PgDn | END  |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL},
-  {KC_GRV,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7, KC_8, KC_9, KC_0, KC_UNDS},
-  {_______, KC_QUOT,   KC_D,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_HOME, KC_END, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {KC_TILD,    KC_EXLM,      KC_AT, KC_HASH,  KC_DLR, KC_PERC,    KC_CIRC,    KC_AMPR, KC_ASTR, KC_LPRN,   KC_RPRN,  KC_DEL},
+  {KC_GRV,        KC_1,       KC_2,    KC_3,    KC_4,    KC_5,       KC_6,       KC_7,    KC_8,    KC_9,      KC_0, KC_UNDS},
+  {_______, S(KC_LBRC), S(KC_RBRC), KC_LBRC, KC_RBRC, KC_QUOT, S(KC_QUOT), S(KC_BSLS), KS_BSLS,  KC_EQL, S(KC_EQL), KC_MINS},
+  {_______, __________, __________, _______, _______, _______, __________, __________, KC_HOME, KC_PGUP,   KC_PGDN,  KC_END}
 },
 
 /* Raise
