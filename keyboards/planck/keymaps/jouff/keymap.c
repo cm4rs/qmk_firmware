@@ -31,8 +31,7 @@ enum planck_keycodes {
   FN,
   LOWER,
   RAISE,
-  BACKLIT,
-  EXT_PLV
+  BACKLIT
 };
 
 // Fillers to make layering more clear
