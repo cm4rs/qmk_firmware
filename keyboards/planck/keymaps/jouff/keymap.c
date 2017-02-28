@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |   1  |   2  |   3  |   -  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      | Exit |             |   0  |   .  |   =  |   +  |      |
+ * |      |      |      |      | Exit |             |   0  |   .  |   =  |   +  |   ,  |
  * `-----------------------------------------------------------------------------------'
  */
 
@@ -146,25 +146,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______,   KC_UP, _______,   KC_DEL, KC_HOME, KC_PGUP, KC_KP_7, KC_KP_8, KC_KP_9, KC_PSLS, KC_DEL },
   {_______, KC_LEFT, KC_DOWN, KC_RGHT,   KC_INS,  KC_END, KC_PGDN, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_PENT},
   {_______, _______, _______, _______,  _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PMNS, _______},
-  {_______, _______, _______, _______, EXT_PNUM, _______, _______, KC_KP_0, KC_PDOT, KC_PEQL, KC_PPLS, _______}
+  {_______, _______, _______, _______, EXT_PNUM, _______, _______, KC_KP_0, KC_PDOT, KC_PEQL, KC_PPLS, KC_PCMM}
 },
 
 /* FN (KC_FN0 enfoncée)
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * | L Up | L Dn | LED +|LED - |PTrack|Play P|NTrack| Mute | Vol +| Vol -|Aud on|Audoff|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
+ * |      |Qwerty|Colemk|Dvorak|      |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_FN] = {
-  {_______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL},
-  {_______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {  KC_F1,   KC_F2,   KC_F3,  KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11,  KC_F12},
+  {_______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,  AU_ON,  AU_OFF},
+  {_______,  QWERTY, COLEMAK,  DVORAK, AG_NORM, AG_SWAP,  MUV_DE,  MUV_IN,   MU_ON,  MU_OFF,  MI_ON,  MI_OFF},
+  {_______, _______, _______, _______,    PNUM, _______, _______, _______, _______, _______, _______, _______}
 }
 
 
@@ -176,8 +176,8 @@ float tone_startup[][2]    = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_plover[][2]     = SONG(PLOVER_SOUND);
-float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+float tone_pnum[][2]     = SONG(PLOVER_SOUND);
+float tone_pnum_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
@@ -249,16 +249,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case PLOVER:
+    case PNUM:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
-          PLAY_NOTE_ARRAY(tone_plover, false, 0);
+          PLAY_NOTE_ARRAY(tone_pnum, false, 0);
         #endif
         layer_off(_RAISE);
         layer_off(_LOWER);
         layer_off(_ADJUST);
-        layer_on(_PLOVER);
+        layer_on(_PNUM);
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
         }
@@ -268,12 +268,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case EXT_PLV:
+    case EXT_PNUM:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_plover_gb, false, 0);
+          PLAY_NOTE_ARRAY(tone_pnum_gb, false, 0);
         #endif
-        layer_off(_PLOVER);
+        layer_off(_PNUM);
       }
       return false;
       break;
