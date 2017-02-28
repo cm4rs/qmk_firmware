@@ -132,21 +132,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* PNUM layer
  * ,-----------------------------------------------------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  | F12  |
+ * |      |      |  Up  |      |  Del | Home | PgUp |   7  |   8  |   9  |   /  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |      | Left | Down | Right|Insert|  End | PgDn |   4  |   5  |   6  |   *  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |TogOut|   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |      |      |      |      |      |      |      |   1  |   2  |   3  |   -  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
+ * |      |      |      |      | Exit |             |   0  |   .  |   =  |   +  |      |
  * `-----------------------------------------------------------------------------------'
  */
 
 [_PNUM] = {
-  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
-  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+  {_______, _______,   KC_UP, _______,   KC_DEL, KC_HOME, KC_PGUP, KC_KP_7, KC_KP_8, KC_KP_9, KC_PSLS, KC_DEL },
+  {_______, KC_LEFT, KC_DOWN, KC_RGHT,   KC_INS,  KC_END, KC_PGDN, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_PENT},
+  {_______, _______, _______, _______,  _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PMNS, _______},
+  {_______, _______, _______, _______, EXT_PNUM, _______, _______, KC_KP_0, KC_PDOT, KC_PEQL, KC_PPLS, _______}
 },
 
 /* FN (KC_FN0 enfoncée)
