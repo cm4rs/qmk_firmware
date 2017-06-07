@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak m4rs
  * ┌────────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
- * │Tab     │   "  │   ,  │   .  │   P  │   Y  ║   F  │   G  │   C  │   R  │   L  │Bksp  │
+ * │Tab     │   '  │   ,  │   .  │   P  │   Y  ║   F  │   G  │   C  │   R  │   L  │Bksp  │
  * ├────────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
  * │Ctrl/Esc│   A  │   O  │   E  │   U  │   I  ║   D  │   H  │   T  │   N  │   S  │Enter │
  * ├────────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
@@ -90,20 +90,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak jouff
  * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
- * │ Esc  │   "  │   ,  │   .  │   P  │   Y  ║   F  │   G  │   C  │   R  │   L  │Bksp  │
+ * │ Tab  │   '  │   ,  │   .  │   P  │   Y  ║   F  │   G  │   C  │   R  │   L  │Bksp  │
  * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
- * │ Tab  │   A  │   O  │   E  │   U  │   I  ║   D  │   H  │   T  │   N  │   S  │Enter │
+ * │ Esc  │   A  │   O  │   E  │   U  │   I  ║   D  │   H  │   T  │   N  │   S  │Enter │
  * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
- * │ Shift│   ;  │   Q  │   J  │   K  │   X  ║   B  │   M  │   W  │   V  │   Z  │Shift/│
+ * │ Shift│   ;  │   Q  │   J  │   K  │   X  ║   B  │   M  │   W  │   V  │   Z  │Shift │
  * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
- * │ Brite│ Ctrl │ Alt  │ GUI  │Lower │    Space    │Raise │ Left │ Down │  Up  │Right │
+ * │ FN   │ Ctrl │ Alt  │ GUI  │Lower │    Space    │Raise │ Left │ Down │  Up  │Right │
  * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
 [_DVORAK_J] = {
-  {KC_ESC,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},
-  {KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,  KC_ENT},
-  {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLSH)  },
-  {BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER_J, KC_SPC, KC_SPC, RAISE_J, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
+  {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},
+  {KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,  KC_ENT},
+  {KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  KC_RSFT},
+  {KC_FN1, KC_LCTL, KC_LALT, KC_LGUI, LOWER_J, KC_SPC, KC_SPC, RAISE_J, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
 },
 
 /* Lower m4rs
@@ -216,24 +216,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower jouff
  * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
- * │   ~  │   !  │   @  │   #  │   $  │   %  ║   ^  │   &  │   *  │   (  │   )  │ Del  │
- * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
- * │ Del  │      │      │      │      │      ║      │   _  │   +  │   {  │   }  │  │   │
- * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
- * │      │ Undo │ Cut  │ Copy │ Paste│      ║      │ISO ~ │ISO │ │      │      │Enter │
- * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
- * │      │      │      │      │      │             │      │ Next │ Vol- │ Vol+ │ Play │
- * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
- */
-[_LOWER_J] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL},
-  {KC_DEL,  _______, _______, _______, _______, _______, _______, KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, _______, S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY}
-},
-
-/* Raise jouff
- * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
  * │   `  │   1  │   2  │   3  │   4  │   5  ║   6  │   7  │   8  │   9  │   0  │ Bksp │
  * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
  * │ Del  │  F1  │  F2  │  F3  │  F4  │  F5  ║  F6  │   -  │   =  │   [  │   ]  │  \   │
@@ -243,11 +225,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │      │      │      │      │      │             │      │ Next │ Vol- │ Vol+ │ Play │
  * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
-[_RAISE_J] = {
+[_Lower_J] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+},
+
+/* Raise jouff
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │   `  │   1  │   2  │   3  │   4  │   5  ║   6  │   7  │   8  │   9  │   0  │ Del  │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │   ø  │   €  │   µ  │   ±  ║   £  │      │  [   │   ]  │ │ \  │Enter │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │      │ Redo │ Undo │ Cut  │ Copy │ Paste║      │      │      │   -  │   =  │Shift │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │      │      │      │             │      │ Home │ PgUp │ PgDn │ End  │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
+ */
+[_RAISE_J] = {
+  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL},
+  {_______, ______, ______,   _____, ________, _______, _______, _______, KC_LBRC, KC_RBRC, LC_BSLS, KC_ENT},
+  {_______, A_REDO, A_UNDO,   A_CUT,   A_COPY,  A_PASTE, _______, _______, ______,  KC_MINS, KC_EQL, KC_RSFT},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END}
 },
 
 /* Space Fn jouff
