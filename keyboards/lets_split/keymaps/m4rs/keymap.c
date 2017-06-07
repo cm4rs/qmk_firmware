@@ -19,6 +19,10 @@ enum planck_layers {
   _DVORAK,
   _LOWER,
   _RAISE,
+  _SRAISE,
+  _SPACE_FN,
+  _SPACE_FN_ALT,
+  _FN,
   _ADJUST
 };
 
@@ -26,12 +30,23 @@ enum planck_keycodes {
   DVORAK = SAFE_RANGE,
   LOWER,
   RAISE,
+  SRAISE,
+  SPACE_FN,
+  FN,
   BACKLIT,
 };
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+#define W_CLOSE  LCTL(KC_W) // C-w Close
+#define W_CUT    LCTL(KC_X) // C-x Cut
+#define W_COPY   LCTL(KC_C) // C-c Copy
+#define W_PASTE  LCTL(KC_V) // C-v Paste
+#define W_UNDO   LCTL(KC_Z) // C-z Undo
+#define W_REDO   LCTL(KC_Y) // C-y Redo
+#define W_FIND   LCTL(KC_F) // C-v Find
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -46,29 +61,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |Compose | Ctrl | GUI  | Alt  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-------------------------------------------------------------------------------------'
  * compose -> controle de droite (géré par linux)
+ * alternative : 
+ * ┌────────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │Tab     │   "  │   ,  │   .  │   P  │   Y  ║   F  │   G  │   C  │   R  │   L  │Bksp  │
+ * ├────────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │Ctrl/Esc│   A  │   O  │   E  │   U  │   I  ║   D  │   H  │   T  │   N  │   S  │Enter │
+ * ├────────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │Shift   │   ;  │   Q  │   J  │   K  │   X  ║   B  │   M  │   W  │   V  │   Z  │Shft /│
+ * ├────────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │Esc     │  Fn  │ GUI  │ Alt  │Lower │    Space    │Raise │ Left │ Down │  Up  │Right │
+ * └────────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
+/*[_DVORAK] = {*/
+  /*{KC_TAB,                                KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},*/
+  /*{ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ESC), KC_A,    KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,  KC_ENT},*/
+  /*{KC_LSFT,                               KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  ACTION_MODS_TAP_KEY(MOD_RSFT, KC_SLSH) },*/
+  /*{KC_RCTL,                               KC_LCTL, KC_LGUI, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}*/
+/*},*/
 [_DVORAK] = {
-  {KC_TAB,                                KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,   KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},
-  {ACTION_MODS_TAP_KEY(MOD_RCTL, KC_ESC), KC_A,    KC_O,    KC_E,    KC_U,  KC_I,   KC_D,   KC_H,  KC_T,    KC_N,    KC_S,  KC_ENT},
-  {KC_LSFT,                               KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,   KC_M,  KC_W,    KC_V,    KC_Z,  ACTION_MODS_TAP_KEY(MOD_RSFT, KC_SLSH) },
-  {KC_RCTL,                               KC_LCTL, KC_LGUI, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
+  {KC_TAB,        KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC},
+  {CTL_T(KC_ESC), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT},
+  {KC_LSFT,       KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLSH)},
+  {KC_ESC,        FN,      KC_LGUI, KC_LALT, LOWER,   KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
 },
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
+ * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |Enter |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |   |  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_DEL},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______},
+  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, _______},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  KC_PIPE},
   {_______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
@@ -90,6 +121,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
+/* Space Fn m4rs
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │      │ PgUp │ Home │   ↑  │  End │   A  ║   B  │   7  │   8  │   9  │   /  │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │ PgDn │   ←  │   ↓  │   →  │   C  ║   D  │   4  │   5  │   6  │   *  │Enter │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │      │      │WWWBAK│WWWREF│WWWFWD│   E  ║   F  │   1  │   2  │   3  │   +  │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │      │      │      │ ▒▒▒▒▒▒▒▒▒▒▒ │   0  │   .  │   =  │   -  │      │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
+ */
+[_SPACE_FN] = {
+  {_______, KC_PGUP, KC_HOME, KC_UP,   KC_END,   S(KC_A), S(KC_B), KC_KP_7, KC_KP_8, KC_KP_9, KC_PSLS, _______},
+  {_______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, S(KC_C), S(KC_D), KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_PENT},
+  {_______, _______, KC_WBAK, KC_WREF, KC_WFWD,  S(KC_E), S(KC_F), KC_KP_1, KC_KP_2, KC_KP_3, KC_PPLS, _______},
+  {_______, _______, _______, _______, _______,  _______, _______, KC_KP_0, KC_PDOT, KC_PEQL, KC_PMNS, _______}
+},
+
+/* Space Fn m4rs alternatif
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │      │   /  │   1  │   2  │   3  │   A  ║   B  │ Home │   ↑  │  End │ PgUp │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │   *  │   4  │   5  │   6  │   C  ║   D  │   ←  │   ↓  │   →  │ PgDn │      │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │      │   +  │   7  │   8  │   9  │   E  ║   F  │WWWbak│WWWref│WWWfwd│      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │   ─  │   0  │   .  │   =  │ ▒▒▒▒▒▒▒▒▒▒▒ │      │      │      │      │      │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
+ */
+[_SPACE_FN_ALT] = {
+  {_______, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_PGUP, KC_HOME, KC_UP,   KC_END,   S(KC_A), S(KC_B), _______},
+  {_______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, S(KC_C), S(KC_D), KC_PENT},
+  {_______, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, _______, KC_WBAK, KC_WREF, KC_WFWD,  S(KC_E), S(KC_F), _______},
+  {_______, KC_KP_0, KC_PDOT, KC_PEQL, KC_PMNS, _______, _______, _______, _______,  _______, _______, _______}
+},
+
+/* Fn m4rs : RCtrl assigné à compose sous linux
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │      │  F1  │  F2  │  F3  │  F4  │      ║      │MPrev │MPlay │MNext │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │CapsL │  F5  │  F6  │  F7  │  F8  │      ║      │ Mute │ Vol+ │ Vol- │      │      │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │RCtrl │  F9  │  F10 │  F11 │  F12 │      ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │ ▒▒▒▒ │      │      │      │             │      │      │      │      │      │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
+ */
+[_FN] = {
+  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______},
+  {KC_CAPS, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_MUTE, KC_VOLU, KC_VOLD, _______, _______},
+  {KC_RCTL, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+},
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
