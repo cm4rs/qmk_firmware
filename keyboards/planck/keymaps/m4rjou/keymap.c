@@ -114,14 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
  * │      │Close │ Undo │ Cut  │ Copy │Paste ║      │   «  │   »  │      │      │      │
  * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
- * │      │      │      │      │ ▒▒▒▒ │             │      │ Home │ PgUp │ PgDn │ End  │
+ * │      │      │      │      │ ▒▒▒▒ │             │      │C(Hom)│C(PUp)│C(PDn)│C(End)│
  * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
 [_LOWER_M] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_MINS, KC_EQL,  KC_DEL},
-  {_______, KC_MINS, KC_UNDS, KC_QUES, KC_EQL,  KC_PLUS, _______, KC_LPRN,    KC_RPRN,    KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, W_CLOSE, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, UC(0x00ab), UC(0x00bb), _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______,    KC_HOME,    KC_PGUP, KC_PGDN, KC_END}
+  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,       KC_MINS,       KC_EQL,        KC_DEL},
+  {_______, KC_MINS, KC_UNDS, KC_QUES, KC_EQL,  KC_PLUS, _______, KC_LPRN,    KC_RPRN,       KC_LCBR,       KC_RCBR,       KC_PIPE},
+  {_______, W_CLOSE, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, UC(0x00ab), UC(0x00bb),    _______,       _______,       _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______,    LCTL(KC_HOME), LCTL(KC_PGUP), LCTL(KC_PGDN), LCTL(KC_END)}
 },
 
 /* Raise m4rs avec unicode directement, si ça marche on peut se servir d'un mapping qwerty
