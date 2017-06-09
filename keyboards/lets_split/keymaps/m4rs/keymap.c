@@ -12,9 +12,10 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 1
 #define _LOWER 2
 #define _RAISE 3
-#define _SPACE_FN 4
-#define _SPACE_FN_ALT 5
-#define _FN 6
+#define _SRAISE 4
+#define _SPACE_FN 5
+#define _SPACE_FN_ALT 6
+#define _FN 7
 #define _ADJUST 16
 
 enum custom_keycodes {
@@ -61,43 +62,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 
-/* Dvorak
- * ,-----------------------------------------------------------------------------------.
- * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Esc  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-[_DVORAK] = KEYMAP( \
-  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-  KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT , \
-  ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-),
 /* Dvorak m4rs
- * ,-------------------------------------------------------------------------------------.
- * | Tab    |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
- * |--------+------+------+------+------+-------------+------+------+------+------+------|
- * |Ctrl/Esc|   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |Enter |
- * |--------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift  |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Shft /|
- * |--------+------+------+------+------+------+------+------+------+------+------+------|
- * |Compose | Ctrl | GUI  | Alt  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
- * `-------------------------------------------------------------------------------------'
- * compose -> controle de droite (géré par linux)
- * alternative : 
  * ┌────────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
  * │Tab     │   "  │   ,  │   .  │   P  │   Y  ║   F  │   G  │   C  │   R  │   L  │Bksp  │
  * ├────────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
  * │Ctrl/Esc│   A  │   O  │   E  │   U  │   I  ║   D  │   H  │   T  │   N  │   S  │Enter │
  * ├────────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
  * │Shift   │   ;  │   Q  │   J  │   K  │   X  ║   B  │   M  │   W  │   V  │   Z  │Shft /│
- * ├────────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
- * │Esc     │  Fn  │ GUI  │ Alt  │Lower │    Space    │Raise │ Left │ Down │  Up  │Right │
+ * ├────────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │Esc     │  Fn  │ GUI  │ Alt  │Lower │SpceFn║SpceFn│Raise │ Left │ Down │  Up  │Right │
  * └────────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
 /*[_DVORAK] = {*/
@@ -107,46 +80,64 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*{KC_RCTL,                               KC_LCTL, KC_LGUI, KC_LALT, LOWER, KC_SPC, KC_SPC, RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}*/
 /*},*/
 [_DVORAK] = KEYMAP( \
-  KC_TAB,        KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
-  CTL_T(KC_ESC), KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT, \
-  KC_LSFT,       KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLSH), \
-  KC_ESC,        FN,      KC_LGUI, KC_LALT, LOWER,   KC_SPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+  KC_TAB,        KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,        KC_F,    KC_G,        KC_C,    KC_R,  KC_L,    KC_BSPC,        \
+  CTL_T(KC_ESC), KC_A,    KC_O,    KC_E,    KC_U,  KC_I,        KC_D,    KC_H,        KC_T,    KC_N,  KC_S,    KC_ENT,         \
+  KC_LSFT,       KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,        KC_B,    KC_M,        KC_W,    KC_V,  KC_Z,    SFT_T(KC_SLSH), \
+  KC_ESC,        FN,      KC_LGUI, KC_LALT, LOWER, LT(SPACE_FN, KC_SPC), LT(SPACE_FN, KC_SPC), RAISE, KC_LEFT, KC_DOWN,        KC_UP, KC_RGHT \
 ),
 
-/* Lower
- * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |     |    \  |  |   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
+/* Lower m4rs
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │   ~  │   !  │   @  │   #  │   $  │   %  ║   ^  │   &  │   *  │ - _  │ = +  │ Del  │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │   -  │   _  │   ?  │   =  │   +  ║      │   (  │   )  │   {  │   }  │  │   │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │      │Close │ Undo │ Cut  │ Copy │Paste ║      │   «  │   »  │      │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │      │      │ ▒▒▒▒ │             │      │C(Hom)│C(PUp)│C(PDn)│C(End)│
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
 [_LOWER] = KEYMAP( \
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),_______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,       KC_MINS,       KC_EQL,        KC_DEL, \
+  _______, KC_MINS, KC_UNDS, KC_QUES, KC_EQL,  KC_PLUS, _______, KC_LPRN,    KC_RPRN,       KC_LCBR,       KC_RCBR,       KC_PIPE, \
+  _______, W_CLOSE, W_UNDO,  W_CUT,   W_COPY,  W_PASTE, _______, UC(0x00ab), UC(0x00bb),    _______,       _______,       _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______,    LCTL(KC_HOME), LCTL(KC_PGUP), LCTL(KC_PGDN), LCTL(KC_END) \
 ),
 
-/* Raise
- * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
+/* Raise m4rs avec unicode directement, si ça marche on peut se servir d'un mapping qwerty
+ * pour l'os plutôt que qwerty international ce qui symplifie plein de choses
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │      │   ä  │   ê  │   ë  │   ü  │      ║Macel0│Mbtn1 │Mup   │Mbtn3 │MWup  │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │   à  │   ô  │   é  │   û  │   î  ║Macel1│Mleft │MDown │Mright│MWdn  │      │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │SRAISE│   â  │   ö  │   è  │   ù  │   ï  ║Macel2│Mbtn4 │Mbtn2 │Mbtn5 │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │      │      │      │             │ ▒▒▒▒ │ Home │ PgUp │ PgDn │ End  │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
  */
 [_RAISE] = KEYMAP( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
-  _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY \
+  _______,  UC(0x00e4), UC(0x00ea), UC(0x00eb), UC(0x00fc), _______,    KC_ACL0, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______, \
+  _______,  UC(0x00e0), UC(0x00f4), UC(0x00e9), UC(0x00fb), UC(0x00ee), KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, \
+  SRAISE,   UC(0x00e2), UC(0x00f6), UC(0x00e8), UC(0x00f9), UC(0x00ef), KC_ACL2, KC_BTN4, KC_BTN1, KC_BTN5, _______, _______, \
+  _______,  _______,    _______,    _______,    _______,    _______,    _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END \
+),
+/* Raise m4rs avec unicode shifté
+ * ┌──────┬──────┬──────┬──────┬──────┬──────╥──────┬──────┬──────┬──────┬──────┬──────┐
+ * │      │   Ä  │   Ê  │   Ë  │   Ü  │      ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╫──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │   À  │   Ô  │   É  │   Û  │   Î  ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼───┄──┼──────╫──────┼───┄──┼──────┼──────┼──────┼──────┤
+ * │ ▒▒▒▒ │   Â  │   Ö  │   È  │   Ù  │   Ï  ║      │      │      │      │      │      │
+ * ├──────┼──────┼──────┼──────┼──────┼──────╨──────┼──────┼──────┼──────┼──────┼──────┤
+ * │      │      │      │      │      │             │ ▒▒▒▒ │      │      │      │      │
+ * └──────┴──────┴──────┴──────┴──────┴─────────────┴──────┴──────┴──────┴──────┴──────┘
+ */
+[_SRAISE] = KEYMAP( \
+  _______, UC(0x00c4), UC(0x00ca), UC(0x00cb), UC(0x00dc), _______,    KC_ACL0, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______, \
+  _______, UC(0x00c0), UC(0x00d4), UC(0x00c9), UC(0x00db), UC(0x00ce), KC_ACL1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, \
+  _______, UC(0x00c2), UC(0x00d6), UC(0x00c8), UC(0x00d9), UC(0x00cf), KC_ACL2, KC_BTN4, KC_BTN1, KC_BTN5, _______, _______, \
+  _______, _______,    _______,    _______,    _______,    _______,    _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END \
 ),
 
 /* Space Fn
@@ -271,6 +262,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case SRAISE:
+      if (record->event.pressed) {
+        layer_on(_SRAISE);
+      } else {
+        layer_off(_SRAISE);
       }
       return false;
       break;
